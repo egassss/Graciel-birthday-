@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="style.css" />
+
+<!-- css-doodle custom element, used for the heart-field in the cake scene.
+     if this fails to load (offline), the cake slide still works fine —
+     it just won't have the animated heart background. -->
+<script src="https://unpkg.com/css-doodle@0.29.0/css-doodle.min.js"></script>
+
+<!-- jQuery, needed for the floating-hearts background on the final video slide -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<!-- falling petals overlay -->
+<div id="petalField" class="petal-field" aria-hidden="true"></div>
+
+<!-- progress dots -->
+<nav class="dots" aria-hidden="true">
+  <span class="dot" data-dot="scene-start"></span>
+  <span class="dot" data-dot="scene-wishes"></span>
+  <span class="dot" data-dot="scene-photos"></span>
+  <span class="dot" data-dot="scene-cake"></span>
+  <span class="dot" data-dot="scene-letter"></span>
+  <span class="dot" data-dot="scene-video"></span>
+</nav>
+
+<!-- SCENE 0 · START -->
+<section id="scene-start" class="scene scene-center is-active">
+  <img class="doodle doodle-a" src="assets/doodle-1.png" alt="" />
+  <img class="doodle doodle-b" src="assets/doodle-2.png" alt="" />
+  <div class="start-card">
+    <p class="eyebrow">✿ a little something made just for you ✿</p>
+    <h1>Happy<br /><em>Birthday</em></h1>
+    <p class="sub">press start, and let the petals fall</p>
+    <button id="startBtn" class="btn" type="button">✿ Start the surprise</button>
+  </div>
+</section>
+
+<!-- SCENE 1 · WISHES -->
+<section id="scene-wishes" class="scene">
+  <img class="doodle doodle-w1" src="assets/doodle-1.png" alt="" />
+  <img class="doodle doodle-w2" src="assets/doodle-2.png" alt="" />
+  <img class="doodle doodle-w3" src="assets/doodle-3.png" alt="" />
+  <div class="wishes-card">
+    <p class="eyebrow">chapter one · a birthday wish</p>
+    <h2>To the girl who makes<br /><em>everything softer.</em></h2>
+    <!-- EDIT ME: replace with your real wish whenever you like -->
+    <p class="wish-text">
+      Happy birthday to someone who fills every ordinary day with a little extra light.
+      I hope this year hands you soft mornings, easy laughter, and every small
+      thing you've been quietly wishing for. Never stop dreaming big and never
+      give up on the things that make your heart feel full — the world is only
+      better with you in it.
+    </p>
+    <span class="music-status">♪ playing softly for you mae</span>
+    <button class="btn next-btn" data-next="scene-photos" type="button">Next chapter →</button>
+  </div>
+</section>
+
+<!-- SCENE 2 · PHOTO BOOTH -->
+<section id="scene-photos" class="scene">
+  <p class="eyebrow center">chapter two · the photo booth</p>
+  <h2 class="center">Little moments,<br /><em>framed forever.</em></h2>
+
+  <div class="booth">
+    <!-- EDIT ME: swap the <figcaption> text under each photo whenever you like -->
+    <figure class="polaroid p1">
+      <img src="assets/image1.png" alt="Photo booth memory one" />
+      <figcaption>Cute ka XD </figcaption>
+    </figure>
+    <figure class="polaroid p2">
+      <img src="assets/image2.png" alt="Photo booth memory two" />
+      <figcaption>PLease please please TwT lets make this true ? </figcaption>
+    </figure>
+    <figure class="polaroid p3">
+      <img src="assets/image3.png" alt="Photo booth memory three" />
+      <figcaption>You are so heavy piggy but I am carrying you in my heart <3 </figcaption>
+    </figure>
+    <figure class="polaroid p4">
+      <img src="assets/image4.png" alt="Photo booth memory four" />
+      <figcaption>Lets ride this in real :) </figcaption>
+    </figure>
+    <figure class="polaroid p5">
+      <img src="assets/image5.png" alt="Photo booth memory five" />
+      <figcaption>Cant I have a pic with you like this ??? TwT </figcaption>
+    </figure>
+  </div>
+
+  <button class="btn next-btn center-btn" data-next="scene-cake" type="button">Next chapter →</button>
+</section>
+
+<!-- SCENE 3 · CAKE + HEARTS -->
+<section id="scene-cake" class="scene scene-dark">
+  <css-doodle class="heart-field" use="M">
+  <style>
+    --color: #ff9fb3, #ffd9e3, #fff3e0, #c9b6e4;
+    @grid: 30x1 / 100vw 100vh / transparent;
+
+    :container {
+      perspective: 30vmin;
+      --deg: @p(-180deg, 180deg);
+    }
+
+    :after, :before {
+      content: '';
+      background: @p(--color);
+      @place: @r(100%) @r(100%);
+      @size: @r(6px);
+      @shape: heart;
+    }
+    @place: center;
+    @size: 18vmin;
+    box-shadow: @m2(0 0 50px @p(--color));
+    background: @m100(
+      radial-gradient(@p(--color) 50%, transparent 0)
+      @r(-20%, 120%) @r(-20%, 100%) / 1px 1px
+      no-repeat
+    );
+    will-change: transform, opacity;
+    animation: scale-up 12s linear infinite;
+    animation-delay: calc(-12s / @I * @i);
+    @keyframes scale-up {
+      0%, 95.01%, 100% {
+        transform: translateZ(0) rotate(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      95% {
+        transform:
+          translateZ(35vmin) rotateZ(var(--deg));
+      }
+    }
+  </style>
+  </css-doodle>
+
+  <div class="cake-stage">
+    <p class="eyebrow">chapter three · make a wish</p>
+    <img class="cake-img" src="assets/cake.png" alt="Birthday cake" />
+    <!-- EDIT ME: put her name here -->
+    <p class="cake-name">Graciel</p>
+    <span id="cakeMusicStatus" class="music-status">♪ hbd.mp3 is playing</span>
+    <div class="cake-fallback">
+      <button class="btn next-btn ghost-btn" data-next="scene-letter" type="button">Continue →</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 4 · THE LETTER -->
+<section id="scene-letter" class="scene">
+  <p class="eyebrow center">chapter four · from me, to you</p>
+  <div class="letter-scroll">
+    <div id="letterLines" class="letter-lines"></div>
+    <p class="letter-signoff">Palangga tika Graciel ♡</p>
+    <button class="btn next-btn center-btn" data-next="scene-video" type="button">One last thing →</button>
+  </div>
+</section>
+
+<!-- SCENE 5 · VIDEO -->
+<section id="scene-video" class="scene scene-dark">
+  <div class="bg_heart"></div>
+
+  <div class="video-stage">
+    <p class="eyebrow">chapter five · My animation </p>
+    <div class="video-frame">
+      <!-- EDIT ME: swap in your real video file whenever you like -->
+      <video id="finalVideo" src="assets/video1.mp4" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
+</section>
+
+<!-- audio -->
+<audio id="songWishes" src="assets/song-wishes.mp3" preload="auto"></audio>
+<audio id="songHbd" src="assets/hbd.mp3" preload="auto"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
